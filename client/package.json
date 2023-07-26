@@ -16,6 +16,7 @@
     "webpack": "^4.44.2"
   },
   "scripts": {
+    "predeploy":"npm run build",
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
