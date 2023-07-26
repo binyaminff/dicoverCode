@@ -4,8 +4,12 @@ import ScrollToBottom from "react-scroll-to-bottom";
 function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
+  const [code, setCode] = useState("");
 
   const sendMessage = async () => {
+    if(code.code==currentMessage&&username!=code.username){
+      alert("win");
+    }
     if (currentMessage !== "") {
       const messageData = {
         room: room,
@@ -24,9 +28,16 @@ function Chat({ socket, username, room }) {
   };
 
   useEffect(() => {
+    
     socket.on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
     });
+    socket.on("receive_code", (data) => {
+      console.log(username);
+      console.log(data.username);
+      setCode({code:data.code,username:data.username})
+      
+       });
   }, [socket]);
 
   return (
